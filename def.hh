@@ -18,14 +18,16 @@ typedef struct edge
 }edge;
 
 point** import(std::string);
+cluster** import(point**);
 
 class cluster
 {
-  point* set = NULL;
   public:
     cluster(point*);
     int display();
+    int addpt(point);
     point centroid;
+    point* set = NULL;
 };
 
 #endif

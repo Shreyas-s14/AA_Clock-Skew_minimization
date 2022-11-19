@@ -38,3 +38,8 @@ point** import(std::string path)
   arr = (point**)realloc(arr,(c+1)*sizeof(point*));
   return arr;
 }
+
+cluster* cluster(point** arr)
+{
+  return NULL;
+}
