@@ -2,7 +2,7 @@
 
 
 time=0
-while true
+while time<=6
 do
     time=$((time+1))
     echo "swiss_roll_Time"
