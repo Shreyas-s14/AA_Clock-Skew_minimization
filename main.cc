@@ -1,8 +1,19 @@
 #include<iostream>
+#include<string>
 
-using namespace std;
+typedef struct point
+{
+  int x;
+  int y;
+}pt;
+
+typedef struct edge
+{
+  int p1;
+  int p2;
+}edge;
 
 int main()
 {
-  cout<<"Shreyas is more extremely gay";
+  std::cout<<"test";
 }
