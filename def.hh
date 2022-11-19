@@ -3,7 +3,7 @@
 #include<iostream>
 #include<string>
 #include <fstream>
-
+#include<cmath>
 typedef struct point
 {
   int id;
@@ -17,17 +17,22 @@ typedef struct edge
   int p2;
 }edge;
 
-point** import(std::string);
-cluster** import(point**);
-
 class cluster
 {
   public:
-    cluster(point*);
+    cluster(point**);
+    cluster(std::string);
     int display();
-    int addpt(point);
+    void addpt(point*);
     point centroid;
-    point* set = NULL;
+    point** set = NULL;
+    int size;
+  private:
+    void recompute_centroid();
 };
+
+
+point** import(std::string);
+void clusterdf(point**);
 
 #endif

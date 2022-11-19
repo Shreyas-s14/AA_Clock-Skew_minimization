@@ -1,24 +1,5 @@
 #include "def.hh"
 
-
-cluster::cluster(point* setin)
-{
-  cluster::set = setin;
-}
-
-int cluster::display()
-{
-  if(cluster::set == NULL)
-  {
-    std::cout<<"Cluster empty"<<std::endl;
-    return 0;
-  }
-  int i;
-  for(i = 0;cluster::set[i].id<0;i++)
-    std::cout<<cluster::set[i].id<<") X:"<<cluster::set[i].x<<", "<<"Y:"<<cluster::set[i].y<<std::endl;
-  return i;
-}
-
 point** import(std::string path)
 {
   std::ifstream infile(path);
@@ -39,7 +20,67 @@ point** import(std::string path)
   return arr;
 }
 
-cluster* cluster(point** arr)
+cluster::cluster(point** setin)
 {
-  return NULL;
+  cluster::set = setin;
+  cluster::recompute_centroid();
+}
+
+cluster::cluster(std::string path)
+{
+  cluster::set = import(path);
+  cluster::recompute_centroid();
+}
+
+int cluster::display()
+{
+  if(cluster::set == NULL)
+  {
+    std::cout<<"Cluster empty"<<std::endl;
+    return 0;
+  }
+  int i;
+  for(i = 0;cluster::set[i]->id>=0;i++)
+    std::cout<<cluster::set[i]->id<<") X:"<<cluster::set[i]->x<<", "<<"Y:"<<cluster::set[i]->y<<std::endl;
+  return i;
+}
+
+void cluster::addpt(point* pt)
+{
+  cluster::set = (point**)realloc(cluster::set,(cluster::size+1)*sizeof(point*));
+  cluster::set[cluster::size]=pt;
+  cluster::size++;
+  cluster::recompute_centroid();
+}
+
+void cluster::recompute_centroid()
+{
+    float cx = 0, cy = 0;
+    int i;
+    for(i = 0;cluster::set[i]->id>=0;i++)
+    {
+      cx+=cluster::set[i]->x;
+      cy+=cluster::set[i]->y;
+    }
+    cluster::centroid.x = cx/i;
+    cluster::centroid.y = cy/i;
+    cluster::size = i;
+}
+
+float distance(point a, point b)
+{
+  return std::sqrt(pow(a.x-b.x,2)+pow(a.y-b.y,2));
+}
+
+cluster* clusterfit(cluster full)
+{
+  float distance_matrix[full.size][full.size];
+  float dist_to_centroid[full.size];
+  for(int i = 0;i<full.size;i++)
+  {
+    dist_to_centroid[i] = distance(full.set[i],full.centroid);
+    for(int j = 0;j<i;j++)
+      distance_matrix[i][j]=distance(full.set[i],full.set[j]);
+  }
+
 }
