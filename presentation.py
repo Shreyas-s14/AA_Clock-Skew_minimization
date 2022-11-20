@@ -7,7 +7,7 @@ import time
 #csvs to read : taken as argument for the function
 #csv1 format: serial, x coordinate, y coordinate, highlighted(0/1)
 #csv2 format: node1, node2
-#using matplotlib, map the graph with x and y coordinates
+
 
 def present(csv1,csv2):
     x_cord=np.array([])
