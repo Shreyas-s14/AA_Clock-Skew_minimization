@@ -4,11 +4,13 @@
 #include<string>
 #include <fstream>
 #include<cmath>
+
 typedef struct point
 {
   int id;
   float x;
   float y;
+  int hl;
 }pt;
 
 typedef struct edge
@@ -33,6 +35,10 @@ class cluster
 
 
 point** import(std::string);
-void clusterdf(point**);
+cluster* clusterfit(cluster);
+edge** generate_edges(cluster*);
+void export_node(cluster*, std::string);
+void export_edge(edge**, std::string);
+
 
 #endif
